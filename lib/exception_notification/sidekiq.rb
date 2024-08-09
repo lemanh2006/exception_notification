@@ -22,7 +22,7 @@ if ::Sidekiq::VERSION < '3'
   end
 else
   ::Sidekiq.configure_server do |config|
-    config.error_handlers << proc do |ex, context|
+    config.error_handlers << proc do |ex, context, *args|
       ExceptionNotifier.notify_exception(ex, data: { sidekiq: context })
     end
   end
